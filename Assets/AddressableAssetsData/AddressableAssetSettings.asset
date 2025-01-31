@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
+  m_Name: AddressableAssetSettings
+  m_EditorClassIdentifier: 
+  m_DefaultGroup: b3efb47b67defa242a08fd666a2497fe
+  m_currentHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_OptimizeCatalogSize: 0
+  m_BuildRemoteCatalog: 0
+  m_BundleLocalCatalog: 0
+  m_CatalogRequestsTimeout: 0
+  m_DisableCatalogUpdateOnStart: 0
+  m_IgnoreUnsupportedFilesInBuild: 0
+  m_UniqueBundleIds: 0
+  m_NonRecursiveBuilding: 1
+  m_CCDEnabled: 0
+  m_maxConcurrentWebRequests: 3
+  m_ContiguousBundles: 1
+  m_StripUnityVersionFromBundleBuild: 0
+  m_DisableVisibleSubAssetRepresentations: 0
+  m_ShaderBundleNaming: 0
+  m_ShaderBundleCustomNaming: 
+  m_MonoScriptBundleNaming: 0
+  m_CheckForContentUpdateRestrictionsOption: 0
+  m_MonoScriptBundleCustomNaming: 
+  m_RemoteCatalogBuildPath:
+    m_Id: 
+  m_RemoteCatalogLoadPath:
+    m_Id: 
+  m_ContentStateBuildPathProfileVariableName: 
+  m_CustomContentStateBuildPath: 
+  m_ContentStateBuildPath: 
+  m_BuildAddressablesWithPlayerBuild: 0
+  m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
+  m_GroupAssets:
+  - {fileID: 11400000, guid: 2766724d53414b741bec0899d6620a92, type: 2}
+  - {fileID: 11400000, guid: acc26315b4dba704c912721d2f0c8a90, type: 2}
+  - {fileID: 11400000, guid: 02e047209ba7d3347b03b89736b548aa, type: 2}
+  m_BuildSettings:
+    m_CompileScriptsInVirtualMode: 0
+    m_CleanupStreamingAssetsAfterBuilds: 1
+    m_LogResourceManagerExceptions: 1
+    m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles
+  m_ProfileSettings:
+    m_Profiles:
+    - m_InheritedParent: 
+      m_Id: 724dec77bc19f6240909e9119fa4b336
+      m_ProfileName: Default
+      m_Values:
+      - m_Id: 4c450fe41e504914c939d3a99ce112b6
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: 8f4f3958ef0537e44bcf3d789eaf36c7
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: 9b31e5eea9fecb944b88d75c54fc1728
+        m_Value: ServerData/[BuildTarget]
+      - m_Id: c41830788b24dba40a22198e9f0198b3
+        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+      - m_Id: e16afc2c41bca9e41a789d22e17bfdbf
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+    m_ProfileEntryNames:
+    - m_Id: 4c450fe41e504914c939d3a99ce112b6
+      m_Name: Local.BuildPath
+      m_InlineUsage: 0
+    - m_Id: 8f4f3958ef0537e44bcf3d789eaf36c7
+      m_Name: Local.LoadPath
+      m_InlineUsage: 0
+    - m_Id: 9b31e5eea9fecb944b88d75c54fc1728
+      m_Name: Remote.BuildPath
+      m_InlineUsage: 0
+    - m_Id: c41830788b24dba40a22198e9f0198b3
+      m_Name: Remote.LoadPath
+      m_InlineUsage: 0
+    - m_Id: e16afc2c41bca9e41a789d22e17bfdbf
+      m_Name: BuildTarget
+      m_InlineUsage: 0
+    m_ProfileVersion: 1
+  m_LabelTable:
+    m_LabelNames:
+    - default
+    - EnemyConfig
+  m_SchemaTemplates: []
+  m_GroupTemplateObjects:
+  - {fileID: 11400000, guid: 6807d477f53ef2c43a1fe852d7ccd696, type: 2}
+  m_InitializationObjects: []
+  m_CertificateHandlerType:
+    m_AssemblyName: 
+    m_ClassName: 
+  m_ActivePlayerDataBuilderIndex: 3
+  m_DataBuilders:
+  - {fileID: 11400000, guid: 63ae4523049df8342a370b5970e89f76, type: 2}
+  - {fileID: 11400000, guid: efc0f8df8815fcb4e88e1a3049ce37bf, type: 2}
+  - {fileID: 11400000, guid: dafa172c9af1f10438c35b465e2404bf, type: 2}
+  - {fileID: 11400000, guid: 8db062e4fd1ae834aa1596d082ac925e, type: 2}
+  m_ActiveProfileId: 724dec77bc19f6240909e9119fa4b336
+  m_HostingServicesManager:
+    m_HostingServiceInfos: []
+    m_Settings: {fileID: 11400000}
+    m_NextInstanceId: 0
+    m_RegisteredServiceTypeRefs: []
+    m_PingTimeoutInMilliseconds: 5000

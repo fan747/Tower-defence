@@ -12,13 +12,18 @@ using Zenject;
 
 namespace Assets.Scripts.Factories
 {
-    public abstract class EnemyCreator : IEnemyCreator, IInitializable, IDisposable
+    public abstract class EnemyCreator : IEnemyCreator, IDisposable
     {
         protected abstract string EnemyPath { get; }
 
         protected AssetLoader AssetLoader => new(EnemyPath);
 
         protected EnemyConfig _enemyConfig;
+
+        protected EnemyCreator()
+        {
+            LoadAssets();
+        }
 
         protected GameObject InstantiatePrefab(Vector3 position)
         {
@@ -38,7 +43,7 @@ namespace Assets.Scripts.Factories
             AssetLoader.Unload();
         }
 
-        public async void Initialize()
+        public async void LoadAssets()
         {
             _enemyConfig = await AssetLoader.Load<EnemyConfig>();
         }

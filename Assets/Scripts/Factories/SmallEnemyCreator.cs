@@ -29,7 +29,7 @@ namespace Assets.Scripts.Factories
         public override Enemy CreateEnemy(Vector3 position)
         {
             GameObject enemyInstantiate = InstantiatePrefab(position);
-            var enemyComponent = enemyInstantiate.AddComponent<DefaultEnemy>();
+            var enemyComponent = enemyInstantiate.GetComponent<DefaultEnemy>();
 
             var navMeshAgent = enemyInstantiate.GetComponent<NavMeshAgent>();
             navMeshAgent.speed = _enemyConfig.Speed;

@@ -38,6 +38,7 @@ namespace Assets.Scripts.Enemies
 
         private void Update()
         {
+            Debug.Log(_target.position);
             _enemyMove.Move(_target.position);
         }
 

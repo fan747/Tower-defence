@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: EnemyWaveConfig
   m_EditorClassIdentifier: 
   _enemyWaves:
-  - _waveData: []
+  - _waveData:
+    - enemyType: 0
+      count: 10
+  - _waveData:
+    - enemyType: 0
+      count: 1

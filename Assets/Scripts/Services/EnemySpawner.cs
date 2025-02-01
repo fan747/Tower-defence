@@ -11,40 +11,49 @@ using Zenject;
 
 namespace Assets.Scripts.Services
 {
-    public class EnemySpawner : IFixedTickable
+    public class EnemySpawner : MonoBehaviour
     {
         private List<Transform> _spawnPoints;
         private float _enemySpawnCooldown;
         private Queue<(IEnemyCreator, int)> _enemySpawnQueue = new();
+        private bool _isSpawning = false;
 
-        public EnemySpawner(List<Transform> spawnPoints, float enemySpawnCooldown)
+        [Inject]
+        public void Construct(List<Transform> spawnPoints, float enemySpawnCooldown)
         {
             _spawnPoints = spawnPoints;
             _enemySpawnCooldown = enemySpawnCooldown;
         }
 
-        public void FixedTick()
+        public void Update()
         {
-            if (_enemySpawnQueue.Count > 0)
+            if (_enemySpawnQueue.Count > 0 && !_isSpawning)
             {
-                var enemyQueue = _enemySpawnQueue.Dequeue();
-
-                for (int i = 0; i < enemyQueue.Item2; i++)
-                {
-                    var enemy = enemyQueue.Item1.CreateEnemy(_spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Count)].position);
-                    enemy.StartCoroutine(WaitingSpawnCooldown(_enemySpawnCooldown));
-                }
+                StartCoroutine(ProcessSpawnQueue(_enemySpawnCooldown));
             }
         }
 
         public void AddEnemyToSpawn(IEnemyCreator enemyCreator, int count = 1)
         {
             _enemySpawnQueue.Enqueue((enemyCreator, count));
+            Debug.Log($"{count} enemy was added to spawn queue");
         }
 
-        private IEnumerator WaitingSpawnCooldown(float spawnCooldown)
+        private IEnumerator ProcessSpawnQueue(float spawnCooldown)
         {
-            yield return new WaitForSeconds(spawnCooldown);
+            _isSpawning = true;
+
+            while (_enemySpawnQueue.Count > 0)
+            {
+                var (enemyCreator, count) = _enemySpawnQueue.Dequeue();
+
+                for (int i = 0; i < count; i++)
+                {
+                    var enemy = enemyCreator.CreateEnemy(_spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Count)].position);
+                    yield return new WaitForSeconds(spawnCooldown);
+                }
+            }
+            _isSpawning = false;
         }
     }
 }

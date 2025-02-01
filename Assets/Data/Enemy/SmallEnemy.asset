@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0c54e93158c52640bbae6d860de7d67, type: 3}
   m_Name: SmallEnemy
   m_EditorClassIdentifier: 
-  _health: 0
-  _speed: 0
-  _damage: 0
-  _attackCooldown: 0
-  _prefab: {fileID: 0}
+  _health: 1
+  _speed: 1
+  _damage: 1
+  _attackCooldown: 1
+  _prefab: {fileID: 6465210489933183565, guid: 2908af737ed757144abdd619855fcc97, type: 3}

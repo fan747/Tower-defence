@@ -3,6 +3,7 @@ using Assets.Scripts.Enemies;
 using Assets.Scripts.Modules;
 using Assets.Scripts.Modules.EnemyDeaths;
 using Assets.Scripts.Modules.EnemyMovements;
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,10 +27,10 @@ namespace Assets.Scripts.Factories
 
         protected override string EnemyPath => "SmallEnemy";
 
-        public override Enemy CreateEnemy(Vector3 position)
+        public async override UniTask<Enemy> CreateEnemy(Vector3 position)
         {
-            GameObject enemyInstantiate = InstantiatePrefab(position);
-            var enemyComponent = enemyInstantiate.GetComponent<DefaultEnemy>();
+            GameObject enemyInstantiate = await InstantiatePrefab(position);
+            var enemyComponent = enemyInstantiate.AddComponent<DefaultEnemy>();
 
             var navMeshAgent = enemyInstantiate.GetComponent<NavMeshAgent>();
             navMeshAgent.speed = _enemyConfig.Speed;

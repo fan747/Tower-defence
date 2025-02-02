@@ -7,39 +7,31 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Controllers
 {
     public class EnemyWaveController : ITickable, IDisposable
     {
         private EnemyWaveSwitcher _enemyWaveSwitcher;
-        private int _enemyCount = 0;
-        private bool _isLastWave = false;
         public Action EnemyDieAction;
+        private Counter _enemyCounter = new();
 
         public EnemyWaveController(EnemyWaveSwitcher enemyWaveSwitcher)
         {
             _enemyWaveSwitcher = enemyWaveSwitcher;
-            EnemyDieAction += UpdateEnemyCount;
-            Debug.Log("EnemyWaveController was loaded");
+            EnemyDieAction += _enemyCounter.RemoveOneCount;
         }
 
         public async void Tick()
         {
-            if (_enemyCount == 0 && !_isLastWave)
+            if (_enemyCounter.IsNoCount)
             {
-                _enemyCount = await _enemyWaveSwitcher.NextWave();
-                _isLastWave = _enemyCount == 0;
+                _enemyCounter.AddCount(await _enemyWaveSwitcher.NextWave());
             }
-        }
-
-        public void UpdateEnemyCount()
-        {
-            _enemyCount--;
         }
 
         public void Dispose()
         {
-            EnemyDieAction -= UpdateEnemyCount;
+            EnemyDieAction -= _enemyCounter.RemoveOneCount;
         }
     }
 }

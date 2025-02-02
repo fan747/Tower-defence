@@ -1,4 +1,4 @@
-using Assets.Scripts;
+using Assets.Scripts.Controllers;
 using Assets.Scripts.Factories;
 using Assets.Scripts.Services;
 using System;
@@ -12,12 +12,11 @@ public class EnemyInstaller : MonoInstaller
     [SerializeField] private List<Transform> _enemySpawnPoints;
     [SerializeField] private float _enemySpawnCooldown;
     [SerializeField] private Transform _target;
-    [SerializeField] private EnemySpawner _enemySpawner;
     public override void InstallBindings()
     {
         Container.Bind<float>().FromInstance(_enemySpawnCooldown).WhenInjectedInto<EnemySpawner>();
         Container.Bind<List<Transform>>().FromInstance(_enemySpawnPoints).WhenInjectedInto<EnemySpawner>();
-        Container.BindInterfacesAndSelfTo<EnemySpawner>().FromInstance(_enemySpawner).AsSingle();
+        Container.BindInterfacesAndSelfTo<EnemySpawner>().FromNew().AsSingle();
         Container.Bind<EnemyFactoryLocator>().FromNew().AsSingle();
         Container.Bind<string>().FromInstance(_enemyWaveConfigPath).AsCached().WhenInjectedInto<EnemyWaveSwitcher>();
         Container.BindInterfacesAndSelfTo<EnemyWaveSwitcher>().AsSingle();

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Factories;
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using Zenject;
 
 namespace Assets.Scripts.Services
 {
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawner : ITickable
     {
         private List<Transform> _spawnPoints;
         private float _enemySpawnCooldown;
@@ -25,35 +26,30 @@ namespace Assets.Scripts.Services
             _enemySpawnCooldown = enemySpawnCooldown;
         }
 
-        public void Update()
-        {
-            if (_enemySpawnQueue.Count > 0 && !_isSpawning)
-            {
-                StartCoroutine(ProcessSpawnQueue(_enemySpawnCooldown));
-            }
-        }
-
         public void AddEnemyToSpawn(IEnemyCreator enemyCreator, int count = 1)
         {
             _enemySpawnQueue.Enqueue((enemyCreator, count));
-            Debug.Log($"{count} enemy was added to spawn queue");
         }
 
-        private IEnumerator ProcessSpawnQueue(float spawnCooldown)
+        public async void Tick()
         {
-            _isSpawning = true;
-
-            while (_enemySpawnQueue.Count > 0)
+            if (_enemySpawnQueue.Count > 0 && !_isSpawning)
             {
-                var (enemyCreator, count) = _enemySpawnQueue.Dequeue();
+                _isSpawning = true;
 
-                for (int i = 0; i < count; i++)
+                while (_enemySpawnQueue.Count > 0)
                 {
-                    var enemy = enemyCreator.CreateEnemy(_spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Count)].position);
-                    yield return new WaitForSeconds(spawnCooldown);
+                    var (enemyCreator, count) = _enemySpawnQueue.Dequeue();
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        await enemyCreator.CreateEnemy(_spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Count)].position);
+                        await UniTask.WaitForSeconds(_enemySpawnCooldown);
+                    }
                 }
+
+                _isSpawning = false;
             }
-            _isSpawning = false;
         }
     }
 }

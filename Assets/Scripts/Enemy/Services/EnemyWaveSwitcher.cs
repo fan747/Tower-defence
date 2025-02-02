@@ -12,15 +12,13 @@ using Zenject;
 
 namespace Assets.Scripts.Services
 {
-    public class EnemyWaveSwitcher : IInitializable, IDisposable
+    public class EnemyWaveSwitcher : IDisposable
     {
         private EnemyFactoryLocator _enemyFactoryLocator;
         private EnemySpawner _enemySpawner;
         private AssetLoader _wavesConfigAssetLoader;
         private EnemyWaveConfig _enemyWaveConfig;
         private int _currentWave = 0;
-        private UniTask<EnemyWaveConfig> _enemyWaveConfigTask;
-        private bool _isConfigLoading = false;
 
         public EnemyWaveSwitcher(string enemyWaveConfigPath, EnemyFactoryLocator enemyFactoryLocator, EnemySpawner enemySpawner)
         {
@@ -35,50 +33,33 @@ namespace Assets.Scripts.Services
 
             if (_enemyWaveConfig == null)
             {
-                await LoadAssets();
+                await LoadWaveConfig();
             }
-
-            if (_currentWave >= _enemyWaveConfig.EnemyWaves.Count)
-            {
-                return enemyCount;
-            }
-
 
             foreach (var i in _enemyWaveConfig.EnemyWaves[_currentWave].WaveData)
             {
-                Debug.Log(i.enemyType + ": " + i.count);
                 var factory = _enemyFactoryLocator.Get(i.enemyType);
                 _enemySpawner.AddEnemyToSpawn(factory, i.count);
+
                 enemyCount += i.count;
             }
 
-            Debug.Log(enemyCount);
-            _currentWave++;
+            if (_currentWave < _enemyWaveConfig.EnemyWaves.Count)
+            {
+                _currentWave++;
+            }        
 
             return enemyCount;
         }
 
-        public async UniTask LoadAssets()
+        private async UniTask LoadWaveConfig()
         {
-            if (_isConfigLoading)
-            {
-                _enemyWaveConfig = await _enemyWaveConfigTask;
-                return;
-            }
-
-            _enemyWaveConfigTask = _wavesConfigAssetLoader.Load<EnemyWaveConfig>();
-            _enemyWaveConfig = await _enemyWaveConfigTask;
-            _isConfigLoading = true;
+            _enemyWaveConfig = await _wavesConfigAssetLoader.Load<EnemyWaveConfig>();
         }
 
         public void Dispose()
         {
             _wavesConfigAssetLoader.Unload();
-        }
-
-        public async void Initialize()
-        {
-            await LoadAssets();
         }
     }
 }

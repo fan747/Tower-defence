@@ -1,10 +1,4 @@
-﻿using Assets.Scripts;
-using Cysharp.Threading.Tasks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -23,10 +17,10 @@ namespace Assets.Scripts.Services
             _assetPath = assetPath;
         }
 
-        public async UniTask<T> Load<T>() => await Load<T>(_assetPath);       
+        public async UniTask<T> Load<T>() => await Load<T>(_assetPath);
 
-        public void Unload() 
-        { 
+        public void Unload()
+        {
             if (!_operationHandle.IsValid()) return;
 
             Addressables.Release(_operationHandle);

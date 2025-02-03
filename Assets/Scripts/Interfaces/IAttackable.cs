@@ -1,4 +1,7 @@
-﻿public interface IAttackable
+﻿namespace Assets.Scripts.Interfaces
 {
-    void GiveAttack(float damage);
+    public interface IAttackable
+    {
+        void GiveAttack(float damage);
+    }
 }

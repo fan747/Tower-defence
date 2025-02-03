@@ -17,8 +17,13 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: bc14663715987294f98c7bea2d528457
   m_SerializeEntries:
+  - m_GUID: 2908af737ed757144abdd619855fcc97
+    m_Address: Assets/Prefabs/SmallEnemyPrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d893347e4a5317f40a1f9c44167bc176
-    m_Address: SmallEnemy
+    m_Address: SmallEnemyConfig
     m_ReadOnly: 0
     m_SerializedLabels:
     - EnemyConfig

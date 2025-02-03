@@ -15,7 +15,12 @@ namespace Assets.Scripts.Modules
 
         public void TakeHealth(float health = 1)
         {
-            _health -= health;
+            if (_health > 0) {
+                _health -= health;
+                return;
+            }
+            DieAction?.Invoke();
+            
         }
     }
 }
